@@ -1,0 +1,22 @@
+{
+  "name": "stejano",
+  "version": "1.0.0",
+  "description": "Steganography module for concealing text in bitmap image files",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comychitz/stejano.git"
+  },
+  "author": "comychitz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/comychitz/stejano/issues"
+  },
+  "homepage": "https://github.com/comychitz/stejano#readme",
+  "devDependencies": {
+    "jest": "^25.5.4"
+  }
+}
