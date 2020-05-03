@@ -18,5 +18,8 @@
   "homepage": "https://github.com/comychitz/stejano#readme",
   "devDependencies": {
     "jest": "^25.5.4"
+  },
+  "dependencies": {
+    "jimp": "^0.10.3"
   }
 }
