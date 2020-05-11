@@ -1,6 +1,6 @@
-const conceal = require('../src/stejano.js');
+const stejano = require('../src/stejano.js');
 
-test('basic test', done => {
+test('basic conceal test', done => {
   function callback(data) {
     try {
       expect(data).toBe(true);
@@ -9,9 +9,17 @@ test('basic test', done => {
       done(error);
     }
   }
-
-    //let result = await conceal('msg', './test-files/image.jpg');
-    //expect(result).toBe(true);
-    //expect(conceal('msg', './test-files/image.jpg')).toBe(true);
-    conceal('msg', './test-files/image.jpg', callback);
+  stejano.conceal('this is a test', './test-files/image.png', callback);
 });
+
+test('basic reveal test', done => {
+  function callback(revealedMsg) {
+    try {
+      expect(revealedMsg).toBe("this is a test");
+      done();
+    } catch (error) {
+      done(error);
+    }
+  }
+  stejano.reveal('./test-files/image.concealed.png', callback);
+})
