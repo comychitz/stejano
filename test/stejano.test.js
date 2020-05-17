@@ -1,9 +1,11 @@
 const stejano = require('../src/stejano.js');
+const fs = require('fs');
 
 test('basic conceal test', done => {
   function callback(data) {
     try {
       expect(data).toBe(true);
+      fs.unlinkSync("./image.concealed.png"); 
       done();
     } catch (error) {
       done(error);
