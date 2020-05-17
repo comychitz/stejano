@@ -1,11 +1,12 @@
 var Jimp = require('jimp');
 
-function conceal(msg, img, callback) {
-  Jimp.read(img)
-    .then(image => {
-      concealMsg(msg, image.bitmap.data);
-      let ext = image.getExtension();
-      image.write('image.concealed.' + ext);
+const secret = "9@@z";
+
+function conceal(msg, srcImg, destImg, callback) {
+  Jimp.read(srcImg)
+    .then(img => {
+      concealMsg(msg, img.bitmap.data);
+      img.write(destImg);
       callback(true);
     })
     .catch(err => {
@@ -14,7 +15,7 @@ function conceal(msg, img, callback) {
 }
 
 function concealMsg(msg, bitmap) {
-  msg += "9@@z";
+  msg += secret;
   let bits = asciiStrToBinary(msg);
   for (i = 0; i < bits.length; i++) {
     if (bits[i] == 1) {
@@ -42,7 +43,7 @@ function revealMsg(bitmap) {
     bits.push(bitmap.data[i] & 1);
   }
   let msg = binaryToAsciiStr(bits);
-  msg = msg.substring(0, msg.search("9@@z"));
+  msg = msg.substring(0, msg.search(secret));
   return msg;
 }
 

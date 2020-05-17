@@ -2,16 +2,19 @@ const stejano = require('../src/stejano.js');
 const fs = require('fs');
 
 test('basic conceal test', done => {
+  const srcImg = "./test-files/image.png";
+  const destImg = "./image.concealed.png";
   function callback(data) {
     try {
       expect(data).toBe(true);
-      fs.unlinkSync("./image.concealed.png"); 
+      fs.unlinkSync(destImg);
       done();
     } catch (error) {
       done(error);
     }
   }
-  stejano.conceal('this is a test', './test-files/image.png', callback);
+  const msg = "this is a test";
+  stejano.conceal(msg, srcImg, destImg, callback);
 });
 
 test('basic reveal test', done => {
