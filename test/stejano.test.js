@@ -1,14 +1,15 @@
-const stejano = require('../src/stejano.js');
-const fs = require('fs');
+import { conceal, reveal } from '../src/stejano.js';
+import { existsSync, unlinkSync } from 'fs';
 
 test('basic conceal test', done => {
   const msg = "this is a test";
   const srcImg = "./test-files/image.png";
-  const destImg = "./image.concealed.png";
+  const destImg = "/tmp/image.concealed.png";
 
-  stejano.conceal(msg, srcImg, destImg)
+  conceal(msg, srcImg, destImg)
     .then(() => {
-      fs.unlinkSync(destImg);
+      existsSync(destImg);
+      unlinkSync(destImg);
       done()
     })
     .catch(error => {
@@ -18,7 +19,7 @@ test('basic conceal test', done => {
 
 test('basic reveal test', done => {
   const img = "./test-files/image.concealed.png";
-  stejano.reveal(img)
+  reveal(img)
     .then(revealedMsg => {
       expect(revealedMsg).toBe("this is a test");
       done();

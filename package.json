@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/comychitz/stejano#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
     "jest": "^25.5.4"
   },
   "dependencies": {
