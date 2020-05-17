@@ -2,16 +2,31 @@ var Jimp = require('jimp');
 
 const secret = "9@@z";
 
-function conceal(msg, srcImg, destImg, callback) {
-  Jimp.read(srcImg)
-    .then(img => {
-      concealMsg(msg, img.bitmap.data);
-      img.write(destImg);
-      callback(true);
-    })
-    .catch(err => {
-      console.log("there was an error concealing:", err);
-    });
+function conceal(msg, srcImg, destImg) {
+  return new Promise((resolved, rejected) => {
+    Jimp.read(srcImg)
+      .then(img => {
+        concealMsg(msg, img.bitmap.data);
+        img.write(destImg);
+        resolved();
+      })
+      .catch(err => {
+        rejected(err);
+      });
+  });
+}
+
+function reveal(img) {
+  return new Promise((resolved, rejected) => {
+    Jimp.read(img)
+      .then(image => {
+        const msg = revealMsg(image.bitmap);
+        resolved(msg);
+      })
+      .catch(err => {
+        rejected(err);
+      });
+  });
 }
 
 function concealMsg(msg, bitmap) {
@@ -24,17 +39,6 @@ function concealMsg(msg, bitmap) {
       bitmap[i] = (bitmap[i] & ~1);
     }
   }
-}
-
-function reveal(img, callback) {
-  Jimp.read(img)
-    .then(image => {
-      let msg = revealMsg(image.bitmap);
-      callback(msg);
-    })
-    .catch(err => {
-      console.log("there was an error revealing:", err);
-    });
 }
 
 function revealMsg(bitmap) {
